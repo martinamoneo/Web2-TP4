@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Regalos - Participante</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <!-- Pantalla de login -->
+  <div id="login-screen" class="screen">
+    <div class="login-box">
+      <h1>🎁 Lista de Regalos</h1>
+      <p>Ingresá tu nombre para unirte</p>
+      <input type="text" id="name-input" placeholder="Tu nombre" maxlength="30" autofocus>
+      <button id="join-btn" onclick="joinRoom()">Unirme</button>
+      <p id="login-error" class="error-text"></p>
+    </div>
+  </div>
+
+  <!-- Pantalla principal -->
+  <div id="main-screen" class="screen hidden">
+    <header>
+      <h1>🎁 Lista de Regalos</h1>
+      <div class="header-info">
+        <span id="user-name"></span>
+        <span class="separator">·</span>
+        <span id="participant-count">0 conectados</span>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <!-- Sidebar: participantes y proponer -->
+      <aside class="sidebar">
+        <section class="propose-section">
+          <h3>Proponer productos</h3>
+          <p class="hint">IDs separados por coma (ej: 1, 5, 12)</p>
+          <div class="propose-form">
+            <input type="text" id="product-ids-input" placeholder="1, 5, 12">
+            <button id="propose-btn" onclick="proposeProducts()">Proponer</button>
+          </div>
+          <div id="propose-status"></div>
+        </section>
+
+        <section class="participants-section">
+          <h3>Participantes conectados</h3>
+          <ul id="participants-list"></ul>
+        </section>
+      </aside>
+
+      <!-- Lista de productos -->
+      <main class="product-list-container">
+        <h2>Ranking de productos</h2>
+        <div id="product-list">
+          <p class="empty-message">Aún no hay productos. ¡Proponé uno!</p>
+        </div>
+      </main>
+    </div>
+
+    <!-- Notificaciones -->
+    <div id="notifications"></div>
+  </div>
+
+  <script src="/participante.js"></script>
+</body>
+</html>

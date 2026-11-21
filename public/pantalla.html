@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Regalos - Pantalla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="pantalla-body">
+  <header class="pantalla-header">
+    <h1>🎁 Ranking de Regalos</h1>
+    <div class="header-info">
+      <span id="participant-count">0 participantes conectados</span>
+      <span class="connection-status" id="connection-status">● Conectado</span>
+    </div>
+  </header>
+
+  <main class="pantalla-main">
+    <div id="product-list">
+      <p class="empty-message pantalla-empty">Esperando productos...</p>
+    </div>
+  </main>
+
+  <script src="/pantalla.js"></script>
+</body>
+</html>
