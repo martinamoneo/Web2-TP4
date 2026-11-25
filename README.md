@@ -233,6 +233,57 @@ Con polling, la pantalla haría peticiones HTTP periódicas (ej. cada 1-2 segund
 
 ---
 
+## Evidencias y Demostración
+
+### 1. Demostración en vivo (GIF animado)
+Sincronización en tiempo real entre 3 participantes ("Martina", "Lucas", "Sofi") y la pantalla compartida (TV):
+- Ingreso y actualización en vivo del listado de conectados.
+- Propuesta de productos desde el catálogo externo.
+- Votación en vivo y reordenamiento automático del ranking por votos.
+- Desconexión instantánea sin recargar cuando un participante cierra la pestaña.
+
+![Demostración en vivo](./docs/demo.gif)
+
+---
+
+### 2. Propuesta con fallos parciales
+Se propone una tanda de productos con IDs `4, 99999, 1`:
+- El producto `4` es válido y se agrega a la lista de inmediato.
+- El producto `99999` no existe en DummyJSON y genera un error `not_found`.
+- El producto `1` ya estaba en la lista y genera un error `already_in_list`.
+- **Quien propuso (Martina)** ve el detalle exacto de cada fallo.
+- **Los demás participantes (Lucas)** solo ven el producto `4` agregado con éxito, sin recibir errores ajenos.
+
+| Vista de quien propone (Martina - detalle de errores) | Vista de los demás (Lucas - solo producto agregado) |
+|---|---|
+| ![Fallos parciales - Martina](./docs/11-fallos-parciales.png) | ![Sin errores ajenos - Lucas](./docs/12-lucas-no-ve-errores.png) |
+
+---
+
+### 3. Comportamiento con catálogo lento
+Servidor ejecutándose con `$env:CATALOG_DELAY_MS=3000`:
+- Quien propone productos espera con el indicador *"Consultando catálogo..."*.
+- Los demás participantes continúan utilizando la aplicación normalmente sin bloqueos.
+- Al responder el catálogo, los productos se agregan y se sincronizan instantáneamente en todas las pantallas.
+
+| 1. Martina esperando respuesta | 2. Lucas interactúa normalmente | 3. Productos agregados |
+|---|---|---|
+| ![Catálogo lento - Espera](./docs/16-catalogo-lento-esperando.png) | ![Lucas sin bloqueo](./docs/17-catalogo-lento-lucas-usa-app.png) | ![Productos recibidos](./docs/18-catalogo-lento-productos-llegaron.png) |
+
+---
+
+### 4. Respuesta a mensajes inválidos y tolerancia a fallos
+Mensajes inválidos enviados directamente por WebSocket:
+1. **Mensaje que no es JSON:** recibe un error descriptivo sin tirar el servidor.
+2. **Tipo de acción desconocida (`accion_desconocida`):** recibe error de tipo desconocido.
+3. **Servidor sigue en pie:** inmediatamente después, el participante puede continuar votando y operando con normalidad.
+
+| Mensaje no-JSON | Tipo desconocido | Servidor sigue activo y respondiendo |
+|---|---|---|
+| ![Error no JSON](./docs/13-mensaje-invalido-no-json.png) | ![Tipo desconocido](./docs/14-mensaje-tipo-desconocido.png) | ![Servidor sigue vivo](./docs/15-servidor-sigue-vivo.png) |
+
+---
+
 ## Tecnologías
 
 - **Node.js** (v22 LTS) con **TypeScript**

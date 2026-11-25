@@ -2,6 +2,9 @@
 // Servidor principal: HTTP + WebSocket + SSE
 // ============================================================
 
+import dns from 'node:dns';
+dns.setDefaultResultOrder('ipv4first');
+
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
